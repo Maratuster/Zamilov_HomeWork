@@ -8,24 +8,32 @@ double[] GetArray (int size, int minV, int maxV)
     double[] tempArray = new double[size];
     for (int i = 0; i < size; i++)
     {
-        tempArray[i] = new Random().Next(minV, maxV+1);
-        //tempArray[i] = Math.Round(tempArray[i], 2);
+        tempArray[i] = new Random().NextDouble()*maxV;
+        tempArray[i] = Math.Round(tempArray[i], 2);
     }
-    Console.Write(string.Join(", ", tempArray));
+    Console.WriteLine(string.Join("; ", tempArray));
     return tempArray;
 }
 
 // Функция нахождения парных сумм начальных и конечных значений массива
-double GetSum (double[] tempArray, int size)
+void GetSum (double[] tempArray, int size)
 {
-    double[] newArray = new double[(size/2)+1];
-    for (int i = 0; i < (size/2); i++)
+    double min = tempArray[0];
+    double max = tempArray[0];
+    foreach (var i in tempArray)
     {
-        newArray[i] = tempArray[i] + tempArray[size-1-i];
-        Console.Write($"{newArray}, ");
+        if (i <= min) 
+        {
+            min = i;
+        }
+        else if (i>=max)
+        {
+            max = i;
+        }
+        Console.WriteLine($"{min}, {max}");
     }
-    Console.Write(string.Join(", ", newArray));
-    return newArray;
+    double res = max - min;
+    Console.WriteLine(res);
 }
 
 Console.Write("Задайте длину массива: ");
@@ -35,4 +43,6 @@ int leftValue = Convert.ToInt32(Console.ReadLine());
 Console.Write("Задайте правую границу массива: ");
 int rightValue = Convert.ToInt32(Console.ReadLine());
 double[] array = GetArray(arraySize, leftValue, rightValue);
-array = GetSum(array, rightValue);
+//array = 
+GetSum(array, arraySize);
+//Console.Write(string.Join(", ", array));
