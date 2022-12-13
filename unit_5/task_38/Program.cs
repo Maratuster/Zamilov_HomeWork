@@ -3,12 +3,12 @@
 [3 7 22 2 78] -> 76
 */
 // Функция заполнения массива случайными вещественными значениями в пределах заданных
-double[] GetArray (int size, int minV, int maxV)
+double[] GetArray (int size)
 {
     double[] tempArray = new double[size];
     for (int i = 0; i < size; i++)
     {
-        tempArray[i] = new Random().NextDouble()*maxV;
+        tempArray[i] = new Random().NextDouble()*100;
         tempArray[i] = Math.Round(tempArray[i], 2);
     }
     Console.WriteLine(string.Join("; ", tempArray));
@@ -16,7 +16,7 @@ double[] GetArray (int size, int minV, int maxV)
 }
 
 // Функция нахождения парных сумм начальных и конечных значений массива
-void GetSum (double[] tempArray, int size)
+double GetSum (double[] tempArray, int size)
 {
     double min = tempArray[0];
     double max = tempArray[0];
@@ -30,19 +30,13 @@ void GetSum (double[] tempArray, int size)
         {
             max = i;
         }
-        Console.WriteLine($"{min}, {max}");
     }
     double res = max - min;
-    Console.WriteLine(res);
+    return res;
 }
 
 Console.Write("Задайте длину массива: ");
 int arraySize = Convert.ToInt32(Console.ReadLine());
-Console.Write("Задайте левую границу массива: ");
-int leftValue = Convert.ToInt32(Console.ReadLine());
-Console.Write("Задайте правую границу массива: ");
-int rightValue = Convert.ToInt32(Console.ReadLine());
-double[] array = GetArray(arraySize, leftValue, rightValue);
-//array = 
-GetSum(array, arraySize);
-//Console.Write(string.Join(", ", array));
+double[] array = GetArray(arraySize);
+double result = Math.Round(GetSum(array, arraySize), 2);
+Console.Write(result);
