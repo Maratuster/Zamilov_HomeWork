@@ -16,8 +16,8 @@ int[] GetArray (int size, int minV, int maxV)
 
 int[] productOfNumbers (int[] array, int size)
 {
-    int[] tempArray = new int[size/2];
-    for (int i = 0; i <= size/2; i++)
+    int[] tempArray = new int[((size+1)/2)];
+    for (int i = 0; i < ((size+1)/2); i++)
     {
         if (i == (size-1-i))
         {
@@ -33,7 +33,7 @@ int[] productOfNumbers (int[] array, int size)
 
 Console.Write("Задайте длину массива: ");
 int arraySize = Convert.ToInt32(Console.ReadLine());
-int[] array = GetArray(arraySize, 0, 999);
+int[] array = GetArray(arraySize, 0, 9);
 Console.WriteLine(String.Join(", ", array));
 int[] newArray = productOfNumbers(array, arraySize);
 Console.WriteLine(String.Join(", ", newArray));
