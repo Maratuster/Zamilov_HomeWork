@@ -19,9 +19,6 @@ while (num != 0)
     }
     Console.WriteLine(string.Join("", twoNumA));
 }
-
-
-    
 Console.Write("Введите число любое число: ");
 int number = Convert.ToInt32(Console.ReadLine());
 GetBinariNumber (number);
