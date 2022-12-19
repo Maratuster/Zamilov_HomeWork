@@ -14,7 +14,6 @@ int[] GetArray (int size)
     return tempArray;
 }
 
-// Функция нахождения количества чётных значений среди элементов массива
 int EvenCount (int[] collection)
 {
     int count = 0;
