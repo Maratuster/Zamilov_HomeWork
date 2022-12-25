@@ -10,21 +10,21 @@ int[,] GetSpiralMatrix(int n)
 {
     int[,] matrix = new int[n, n];
     // Ниже спирачено с интернета. Буду разбираться в коде. Пока не понятно ничего
-    int pos = 0;
+    int elementMean = 1;
     int count = n;
     int value = -n;
-    int sum = -1;
+    int position = -1;
     do {
-        value = -1 * value / n;                 //-1*-4/4 =1            -1*4/4=-1
+        value = -1 * value / n;
         for (int i = 0; i < count; i++) {
-            sum += value;                       // 1) -1+-1 = 0    2) 0+1 = 1    3) 1+1 = 2    4) 2+1 = 3
-            matrix[sum / n, sum % n] = pos++;   // 1) matrix[0, 0] = 1    2) matrix[0, 1] = 2    3) matrix[0, 2] = 3    4) matrix[0, 3] = 4
+            position += value;
+            matrix[position / n, position % n] = elementMean++;
         }
-        value *= n;                             // 1*4 = 4
+        value *= n;
         count--;
         for (int i = 0; i < count; i++) {
-            sum += value;                       // 1) 7    2) 11    3) 15    
-            matrix[sum / n, sum % n] = pos++;   // 1) matrix[1, 3] = 5    2) matrix[2, 3] = 6    3) matrix[3, 3] = 7
+            position += value;  
+            matrix[position / n, position % n] = elementMean++;
         }
     } while (count > 0);
 
