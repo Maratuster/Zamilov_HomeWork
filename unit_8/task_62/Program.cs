@@ -6,70 +6,49 @@
 11 16 15 06
 10 09 08 07
 */
-/// Данная функция будет работать при условии, что количество строк меньше количества столбцов
+/// Данная функция будет работать при любом количестве строк и столбцов
 int[,] GetSpiralMatrix(int row, int column)
 {
     int[,] matrix = new int[row, column];
-    int elementMean = 1; // Заводим переменную, значение которой буде присваивать элементам массива
-    int countRow = row; // Заводим счётчик строк для прохода по столбцам.
-    int countColumn = column; // Заводим счётчик столбцов для прохода по строкам.
-    int value = -column; // задаём переменную, которая выступит чем-то типа коэффициента для получения индекса элемента
-    int position = -1; // задаём переменную, которая выступит одним из показателе для получения индекса элемента
-    //Далее мы создаём цикл, который за проход заполняет массив по горизонтали и по вертикали. Количество проходов напрямую зависит от количества строк.
-    while (countRow > 0)
+    if (column >= row)
     {
-        value = -1 * value / column; // при проходе по строке коэффициент зависит от количества строк
-        for (int i = 0; i < countColumn; i++)
+        int elementMean = 1; // Заводим переменную, значение которой буде присваивать элементам массива
+        int countRow = row; // Заводим счётчик строк для прохода по столбцам.
+        int countColumn = column; // Заводим счётчик столбцов для прохода по строкам.
+        int value = -column; // задаём переменную, которая выступит чем-то типа коэффициента для получения индекса элемента
+        int position = -1; // задаём переменную, которая выступит одним из показателе для получения индекса элемента
+                           //Далее мы создаём цикл, который за проход заполняет массив по горизонтали и по вертикали. Количество проходов напрямую зависит от количества строк.
+        while (countRow > 0)
         {
-            position += value;
-            matrix[position / column, position % column] = elementMean;
-            elementMean++;
+            value = -1 * value / column; // при проходе по строке коэффициент зависит от количества строк
+            for (int i = 0; i < countColumn; i++)
+            {
+                position += value;
+                matrix[position / column, position % column] = elementMean;
+                elementMean++;
+            }
+            value *= column; // при проходе по столбцам коэффициент зависит от количества столбцов
+            countRow--;
+            for (int i = 0; i < countRow; i++)
+            {
+                position += value;
+                matrix[position / column, position % column] = elementMean;
+                elementMean++;
+            }
+            countColumn--;
         }
-        value *= column; // при проходе по столбцам коэффициент зависит от количества столбцов
-        countRow--;
-        for (int i = 0; i < countRow; i++)
-        {
-            position += value;
-            matrix[position / column, position % column] = elementMean;
-            elementMean++;
-        }
-        countColumn--;
     }
-
-    return matrix;
-}
-
-/// Данная функция будет работать при условии, что количество столбцов меньше, чем строк количество строк
-/// Для работы данной функции мы копируем содержание GetSpiralMatrix(), заменяя соответственно значения коэффициента value.
-/// Заполнение первой строки выносим в отдельный цикл за пределами While. Это даёт нам направление заполнения массива по часовой стрелке.
-int[,] GetSpiralMatrixClone(int row, int column)
-{
-    int[,] matrix = new int[row, column];
-    int elementMean = 1;
-    int countRow = row;
-    int countColumn = column;
-    int value = -row;
-    int position = -1;
-    value = -1 * value / row;
-    for (int i = 0; i < countColumn; i++)
+    // Данная часть функци будет работать при условии, что количество столбцов меньше, чем строк количество строк
+    // Для работы данной функции мы копируем содержание предыдущей части, заменяя соответственно значения коэффициента value.
+    // Заполнение первой строки выносим в отдельный цикл за пределами While. Это даёт нам направление заполнения массива по часовой стрелке.
+    else
     {
-        position += value;
-        matrix[position / column, position % column] = elementMean;
-        elementMean++;
-    }
-    countRow--;
-    while (countColumn > 0)
-    {
-
-        value *= column;
-        for (int i = 0; i < countRow; i++)
-        {
-            position += value;
-            matrix[position / column, position % column] = elementMean;
-            elementMean++;
-        }
-        countColumn--;
-        value = -1 * value / column;
+        int elementMean = 1;
+        int countRow = row;
+        int countColumn = column;
+        int value = -row;
+        int position = -1;
+        value = -1 * value / row;
         for (int i = 0; i < countColumn; i++)
         {
             position += value;
@@ -77,6 +56,26 @@ int[,] GetSpiralMatrixClone(int row, int column)
             elementMean++;
         }
         countRow--;
+        while (countColumn > 0)
+        {
+
+            value *= column;
+            for (int i = 0; i < countRow; i++)
+            {
+                position += value;
+                matrix[position / column, position % column] = elementMean;
+                elementMean++;
+            }
+            countColumn--;
+            value = -1 * value / column;
+            for (int i = 0; i < countColumn; i++)
+            {
+                position += value;
+                matrix[position / column, position % column] = elementMean;
+                elementMean++;
+            }
+            countRow--;
+        }
     }
     return matrix;
 }
@@ -97,7 +96,7 @@ Console.Write("Введите количество строк: ");
 int rows = Convert.ToInt32(Console.ReadLine());
 Console.Write("Введите количество столбцов: ");
 int columns = Convert.ToInt32(Console.ReadLine());
-int[,] result = new int[rows, columns];
-if (columns >= rows) result = GetSpiralMatrix(rows, columns);
-else result = GetSpiralMatrixClone(rows, columns);
+int[,] result =/* new int[rows, columns];
+if (columns >= rows) result =*/ GetSpiralMatrix(rows, columns);
+// else result = GetSpiralMatrixClone(rows, columns);
 PrintMatrix(result);
